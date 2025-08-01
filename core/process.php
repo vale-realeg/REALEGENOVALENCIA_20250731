@@ -1,5 +1,3 @@
-process.php
-
 <?php
 
 $host_aceptados = array('localhost', '127.0.0.1');
@@ -28,7 +26,7 @@ if(in_array($_SERVER["HTTP_HOST"], $host_aceptados) ){
                         $codigo_estado = 200;
                         $texto_estado = "Ok";
                         list($usec, $sec) = explode(' ', microtime());
-                        $token = base64_encode(date("Y-m-d H:i:s",$sec).substr($usec,1));
+                        $token = base64_encode(date("Y-m-d H:i:s",$sec).substr($user,1));
 
                     }else{
                         // El valor ingresado del campo password no es correcto
@@ -41,7 +39,7 @@ if(in_array($_SERVER["HTTP_HOST"], $host_aceptados) ){
                 }else{
                     // El valor ingresado del campo usuario no es correcto
                     $ruta = "";
-                    $msg = "NO SE RECONOCE EL USUARIO";
+                    $msg = "NO SE RECONOCE EL USUARIO INGRESADO";
                     $codigo_estado = 401;
                     $texto_estado = "Unauthorized";
                     $token = "";
@@ -55,7 +53,7 @@ if(in_array($_SERVER["HTTP_HOST"], $host_aceptados) ){
                 $token = "";
             }
         }else{
-                // El campo password esta vacio
+                // El campo usuario esta vacio
                 $ruta = "";
                 $msg = "EL CAMPO DE USUARIO ESTA VACIO";
                 $codigo_estado = 401;
@@ -65,7 +63,7 @@ if(in_array($_SERVER["HTTP_HOST"], $host_aceptados) ){
     }else{
         // El metodo usado por el usuario no es aceptado
         $ruta = "";
-        $msg = "METODO NO ES PERMITIDO";
+        $msg = "EL METODO NO ES PERMITIDO";
         $codigo_estado = 405;
         $texto_estado = "Method Not Allowed";
         $token = "";
