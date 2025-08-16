@@ -27,7 +27,7 @@ if(in_array($_SERVER["HTTP_HOST"], $host_aceptados) ){
                         $codigo_estado = 200;
                         $texto_estado = "Ok";
                         list($usec, $sec) = explode(' ', microtime());
-                        $token = base64_encode(date("Y-m-d H:i:s",$sec).substr($user,1));
+                        $token = base64_encode(date("Y-m-d H:i:s",$sec).substr($txt_usuario,1));
 
                     }else{
                         // El valor ingresado del campo password no es correcto
