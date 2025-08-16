@@ -60,47 +60,41 @@
 			</div>
 		</div>
 		<script>
-			function Enviar_Datos(u,p){
-				$.post(
-					$("#frm_login").attr("action"), //Ruta de envio de datos (URI)
+			function Enviar_Datos(u, p) {
+			        $.post(
+					$("#frm_login").attr("action"), // Ruta de envío de datos (URI)
 					{
 						txt_usuario: u,
 						txt_password: p	
 					}
-			    ).done(function(datos){
-					window.location.replace(datos.data.url+"$token="+datos.data.token);
-				}).fail(function(xhr,status,error){
-					$(".mensaje").html(hxr.rsponseJSON.error.message)
+				).done(function(datos){
+					// Redirige si el login es correcto a welcome.php
+					window.location.replace(datos.data.url + "?token=" + datos.data.token);
+				}).fail(function(xhr, status, error){
+					// Muestra mensaje de error
+					$(".mensaje").html(xhr.responseJSON.error.message);
 				});
 			}
 
 			$(document).ready(function(){
-					$("#btn_entrar").click(function(){
-						Enviar_Datos($("#txt_usuario"),$("#txt_password"));
-					});
-
-					//SI SE PRESIONA ENTER Y EL FOCUS ESTA EN CUALQUIERA DE LOS DOS CAMPOS
-					$("#txt_usuario").keypress(function(event){
-						if(event.which == "Enter"){
-							//Se ejecuta la Funcion
-							Enviar_Datos($("#txt_usuario"),$("#txt_password"));
-
-						}
-					});
-
-					$("#txt_password").keypress(function(event){
-						if(event.which == "Enter"){
-							//Se ejecuta la Funcion
-							Enviar_Datos($("#txt_usuario"),$("#txt_password"));
-
-						}
-					});
+				//NO se estaban agregando los valores de cada uno de los campos, sino el objeto completo jQuery
+				$("#btn_entrar").click(function(){
+					//Ahora cada campo guarda su valor para ser comprobado
+					Enviar_Datos($("#txt_usuario").val(), $("#txt_password").val());
 				});
 
+				// Detectar Enter en usuario o password
+				$("#txt_usuario, #txt_password").keypress(function(event){
+					if(event.which === 13){
+						Enviar_Datos($("#txt_usuario").val(), $("#txt_password").val());
+					}
+				});
+			});
 		</script>	
 
 
 
 
 	</body>
+
 </html>
